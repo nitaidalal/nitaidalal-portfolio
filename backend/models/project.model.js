@@ -24,6 +24,12 @@ const projectSchema = new mongoose.Schema(
       default: [],
     },
 
+    category: {
+      type: String,
+      enum: ["Full Stack", "Frontend", "Backend", "Mobile", "Machine Learning"],
+      default: "Full Stack",
+    },
+
     imageUrl: {
       type: String, // project screenshot — Cloudinary URL
       default: "",
@@ -57,7 +63,17 @@ const projectSchema = new mongoose.Schema(
       default: false, // featured projects shown first / highlighted
     },
 
-    order: {
+    isPublished: {
+      type: Boolean,
+      default: false,
+    },
+
+    publishedAt: {
+      type: Date,
+      default: null,
+    },
+
+    categoryOrder: {
       type: Number,
       default: 0, // for drag-to-reorder in admin
     },
