@@ -72,11 +72,6 @@ const projectSchema = new mongoose.Schema(
       type: Date,
       default: null,
     },
-
-    categoryOrder: {
-      type: Number,
-      default: 0, // for drag-to-reorder in admin
-    },
   },
   { timestamps: true },
 );
