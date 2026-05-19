@@ -18,18 +18,14 @@ const certificationSchema = new Schema({
     required: [true, "Issue date is required"],
   },
 
-  credential: {
-    type: {
-      enum: ["url", "file"],
-      required: true,
-    },
-    value: String, // URL (online link or Cloudinary file URL)
-    id: String, // credential ID for online verification or Cloudinary public ID
+  credentialUrl: {
+    type: String,
+    default: "",
   },
 
   order: {
     type: Number,
-    default: 0, // controls display order on portfolio
+    default: 0, 
   },
 },
 { timestamps: true }
