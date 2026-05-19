@@ -8,6 +8,7 @@ import cookieParser from "cookie-parser";
 import connectDB from "./config/db.js";
 import connectCloudinary from "./config/cloudinary.js";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
+import { generalLimiter } from "./middleware/rateLimiter.js";
 
 
 dotenv.config();
