@@ -59,6 +59,11 @@ const profileSchema = new mongoose.Schema(
       trim: true,
     },
 
+    location: {
+      type: String,
+      trim: true,
+    },
+
     // ─── Contact & Socials ─────────────────────────────
     email: {
       type: String,
@@ -72,7 +77,6 @@ const profileSchema = new mongoose.Schema(
       twitter: { type: String, default: "" },
       instagram: { type: String, default: "" },
       leetcode: { type: String, default: "" },
-      codeforces: { type: String, default: "" },
     },
 
     // ─── SEO ───────────────────────────────────────────
