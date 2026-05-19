@@ -8,16 +8,15 @@ const skillSchema = new mongoose.Schema(
       trim: true,
     },
 
-    // groups skills into sections on portfolio
     category: {
       type: String,
       required: [true, "Category is required"],
-      enum: ["Languages", "Frameworks", "Databases", "Tools", "Other"],
+      enum: ["Languages", "Frameworks", "Databases", "Tools", "Devops"],
     },
 
     categoryOrder: {
       type: Number,
-      default: 0, // Controls which category appears first
+      default: 0, 
     },
 
     // slug from https://devicons.dev — e.g. "react", "nodejs", "mongodb"
@@ -26,13 +25,14 @@ const skillSchema = new mongoose.Schema(
       default: "",
     },
 
-    proficiency: {
-      type: String,
-      enum: ["Beginner", "Intermediate", "Advanced"],
-      default: "Intermediate",
+    proficiencyPercentage: {
+      type: Number,
+      min: 0,
+      max: 100,
+      required: [true, "Proficiency percentage is required"],
     },
 
-    order: {
+    skillOrder: {
       type: Number,
       default: 0,
     },
