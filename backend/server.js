@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 
 import connectDB from "./config/db.js";
 import connectCloudinary from "./config/cloudinary.js";
+import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 
 
 dotenv.config();
@@ -39,6 +40,12 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
+// ─────────────────────────────────────────
+// Rate Limiter
+// ─────────────────────────────────────────
+app.use(generalLimiter);
+
+
 // ─── Health Check ─────────────────────────────────────
 app.get("/api/health", (req, res) => {
   res.status(200).json({
@@ -48,6 +55,11 @@ app.get("/api/health", (req, res) => {
     timestamp: new Date().toISOString(),
   });
 });
+
+
+//error handling middleware should be last
+app.use(notFound);
+app.use(errorHandler);
 
 
 
