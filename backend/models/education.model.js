@@ -55,23 +55,22 @@ const educationSchema = new mongoose.Schema(
       default: null,
     },
 
-
     //--------------for school----------------
 
     board: {
-      type: String, 
+      type: String,
       trim: true,
       default: "",
     },
 
     percentage: {
       type: Number,
-      min: 0,   
-        max: 100,
-        default: null,
+      min: 0,
+      max: 100,
+      default: null,
     },
 
-    class: {
+    standard: {
       type: String, // "10th", "12th"
       trim: true,
       default: "",
