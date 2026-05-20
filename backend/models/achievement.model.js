@@ -8,19 +8,19 @@ const achievementSchema = new mongoose.Schema(
       trim: true,
     },
 
-    description: {
+    description:{
       type: String,
       trim: true,
+      default: "",
     },
 
     date: {
       type: Date,
     },
 
-    // "Hackathon", "Open Source", "Academic", "Competition", "Other"
     category: {
       type: String,
-      enum: ["Hackathon", "Open Source", "Academic", "Competition", "Other"],
+      trim: true,
       default: "Other",
     },
 
@@ -34,15 +34,11 @@ const achievementSchema = new mongoose.Schema(
       default: "",
     },
 
-    link: {
-      type: String, // proof link — LinkedIn post, article, etc.
+    proofLink: {
+      type: String, // LinkedIn post, article, etc.
       default: "",
     },
 
-    order: {
-      type: Number,
-      default: 0,
-    },
   },
   { timestamps: true },
 );
