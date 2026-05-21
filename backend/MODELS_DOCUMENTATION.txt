@@ -1,0 +1,144 @@
+================================================================================
+                        PORTFOLIO DATABASE MODELS
+================================================================================
+
+================================================================================
+1. ACHIEVEMENT MODEL
+================================================================================
+Fields:
+- title (String) - required
+- description (String) - optional
+- date (Date)
+- category (String)
+- imageUrl (String)
+- imagePublicId (String)
+- proofLink (String)
+- timestamps: createdAt, updatedAt
+
+
+================================================================================
+2. ADMIN MODEL
+================================================================================
+Fields:
+- email (String) - required, unique
+- password (String) - required, min 6 characters
+- timestamps: createdAt, updatedAt
+
+
+================================================================================
+3. CERTIFICATION MODEL
+================================================================================
+Fields:
+- title (String) - required
+- issuer (String) - required (e.g., Coursera, Udemy, AWS)
+- issueDate (Date) - required
+- credentialUrl (String)
+- timestamps: createdAt, updatedAt
+
+
+================================================================================
+4. CONTACT MODEL
+================================================================================
+Fields:
+- name (String) - required
+- email (String) - required
+- subject (String) - optional
+- message (String) - required
+- isRead (Boolean) - default false
+- timestamps: createdAt, updatedAt
+
+
+================================================================================
+5. EDUCATION MODEL
+================================================================================
+Fields:
+- institution (String) - required
+- type (String) - enum: [School, College] - required
+- startYear (Number) - required
+- endYear (Number) - optional (null = still studying)
+- order (Number) - default 0
+
+College-specific fields:
+- degree (String)
+- branch (String) - e.g., "Computer Science & Engineering"
+- currentYear (String) - e.g., "3rd Year"
+- cgpa (Number) - min 0, max 10
+
+School-specific fields:
+- board (String)
+- percentage (Number) - min 0, max 100
+- standard (String) - e.g., "10th", "12th"
+
+- timestamps: createdAt, updatedAt
+
+
+================================================================================
+6. PROFILE MODEL
+================================================================================
+Fields:
+- name (String) - required
+- taglines (Array of Strings)
+- heroSubtitle (String) - e.g., "I build things for the web"
+- avatarUrl (String)
+- avatarPublicId (String) - Cloudinary public_id
+- resumeUrl (String) - Cloudinary PDF URL
+- resumePublicId (String) - needed for deletion
+- bio (String)
+- currentlyLearning (String) - e.g., "Docker, AWS"
+- currentlyBuilding (String) - e.g., "My portfolio"
+- funFact (String)
+- location (String)
+- email (String)
+
+socialLinks (Nested Object):
+  - github (String)
+  - linkedin (String)
+  - twitter (String)
+  - instagram (String)
+  - leetcode (String)
+
+SEO fields:
+- metaTitle (String)
+- metaDescription (String)
+
+- timestamps: createdAt, updatedAt
+
+
+================================================================================
+7. PROJECT MODEL
+================================================================================
+Fields:
+- title (String) - required
+- shortDescription (String) - required
+- description (String)
+- techTags (Array of Strings)
+- category (String) - enum: [Full Stack, Frontend, Backend, Mobile, Machine Learning]
+- imageUrl (String) - project screenshot, Cloudinary URL
+- imagePublicId (String)
+- liveUrl (String)
+- repoUrl (String)
+- startDate (Date)
+- endDate (Date) - null means ongoing
+- featured (Boolean) - default false
+- isPublished (Boolean) - default false
+- publishedAt (Date)
+- timestamps: createdAt, updatedAt
+
+
+================================================================================
+8. SKILL MODEL
+================================================================================
+Fields:
+- name (String) - required
+- category (String) - required
+  enum: [Languages, Frameworks, Databases, Tools, Devops]
+- categoryOrder (Number) - default 0
+- iconSlug (String) - from devicons.dev (e.g., "react", "nodejs", "mongodb")
+- proficiencyPercentage (Number) - min 0, max 100 - required
+- skillOrder (Number) - default 0
+- timestamps: createdAt, updatedAt
+
+
+================================================================================
+END OF DOCUMENTATION
+================================================================================
