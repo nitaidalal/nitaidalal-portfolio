@@ -10,6 +10,9 @@ import connectCloudinary from "./config/cloudinary.js";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 import { generalLimiter } from "./middleware/rateLimiter.js";
 
+// import Routes
+import authRoutes from "./routes/auth.route.js";
+
 
 dotenv.config();
 
@@ -17,6 +20,7 @@ connectDB();
 connectCloudinary();
 
 const app = express();
+
 
 // ─── Security ─────────────────────────────────────────
 app.use(helmet());
@@ -56,6 +60,10 @@ app.get("/api/health", (req, res) => {
     timestamp: new Date().toISOString(),
   });
 });
+
+
+// ─── Routes ───────────────────────────────────────────
+app.use("/api/auth", authRoutes);
 
 
 //error handling middleware should be last
