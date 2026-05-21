@@ -58,7 +58,7 @@ const projectSchema = new mongoose.Schema(
       type: Date, // null means ongoing
     },
 
-    featured: {
+    isFeatured: {
       type: Boolean,
       default: false, // featured projects shown first / highlighted
     },
