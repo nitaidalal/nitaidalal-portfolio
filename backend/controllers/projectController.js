@@ -1,8 +1,7 @@
 import Project from "../models/project.model.js";
 import { errorResponse, successResponse } from "../utils/apiResponse.js";
-import { ProfileSchema, updateProfileSchema } from "../validators/profileValidator.js";
+import { createProjectSchema, updateProfileSchema } from "../validators/projectValidator.js";
 
-//pubic route
 // GET / projects / featured;
 export const getFeaturedProjects = async (req, res, next) => {
   try {
@@ -21,7 +20,6 @@ export const getFeaturedProjects = async (req, res, next) => {
   }
 };
 
-//public route
 // GET / projects;
 export const getAllProjects = async (req, res, next) => {
   try {
@@ -58,16 +56,13 @@ export const getProjectById = async (req,res,next) => {
     }
 }
 
-//private routes - for admin use only
-// POST /api/projects — Create project
+// POST /api/projects 
 export const createProject = async (req,res,next) => {
     try {
-      // techTags comes as JSON string from multipart/form-data
       if (req.body.techTags && typeof req.body.techTas === "string") {
         req.body.techTags = JSON.parse(req.body.techTags);
       }
 
-      // booleans come as strigs from form-data,
       if (req.body.isFeatured !== undefined) {
         req.body.isFeatured = req.body.isFeatured === "true";
       }
@@ -75,12 +70,13 @@ export const createProject = async (req,res,next) => {
         req.body.isPublished = req.body.isPublished === "true";
       }
 
-      const result = ProfileSchema.safeParse(req.body);
+      const result = createProjectSchema.safeParse(req.body);
 
       if (!result.success) {
-        //delete uploaded image from Cloudinary if validation fails
         if (req.file) {
-          await cloudinary.uploader.destroy(req.file.public_id);
+          try {
+          await cloudinary.uploader.destroy(req.file.filename);
+          } catch {}
         }
         const errors = result.error.errors.map((e) => e.message);
         return errorResponse(res, 400, errors[0]);
@@ -93,7 +89,6 @@ export const createProject = async (req,res,next) => {
         projectData.imagePublicId = req.file.filename;
       }
 
-      // set publishedAt timestamp if being published immediately
       if (projectData.isPublished) {
         projectData.publishedAt = new Date();
       }
@@ -106,9 +101,92 @@ export const createProject = async (req,res,next) => {
     }
 }
 
+// Put /api/projects/:id 
+export const updateProject = async (req,res,next) => {
+  try{
+    const { id } = req.params;
+    const project = await Project.findById(id);
+
+    if (!project) {
+      return errorResponse(res, 404, "Project not found");
+    }
+
+    if (req.body.techTags && typeof req.body.techTags === "string") {
+      req.body.techTags = JSON.parse(req.body.techTags);
+    }
+
+    if (req.body.isFeatured !== undefined) {
+      req.body.isFeatured = req.body.isFeatured === "true";
+    }
+
+    if (req.body.isPublished !== undefined) {
+      req.body.isPublished = req.body.isPublished === "true";
+    }
+
+    const result = updateProjectSchema.safeParse(req.body);
+
+    if (!result.success) {
+      if (req.file) {
+        try {
+          await cloudinary.uploader.destroy(req.file.filename);
+        } catch {}
+      }
+      const errors = result.error.errors.map((e) => e.message);
+      return errorResponse(res, 400, errors[0]);
+    }
+
+    const updateProjectData = { ...result.data };
+
+    if (updateProjectData.isPublished && !project.isPublished) {
+      updateProjectData.publishedAt = new Date();
+    }
+
+    if (req.file) {
+      if (project.imagePublicId) {
+        try{
+        await cloudinary.uploader.destroy(project.imagePublicId);
+        } catch{}
+      }
+      updateProjectData.imageUrl = req.file.path;
+      updateProjectData.imagePublicId = req.file.filename;
+    }
+
+    const updatedProject = await Project.findByIdAndUpdate(
+      id,
+      { $set: updateProjectData },
+      { new: true, runValidators: true },
+    );
+
+    return successResponse(res,200,"Project updated",updatedProject);
+  }catch(error){
+    next(error);
+  }
+}
 
 
+// DELETE /api/projects/:id 
+export const deleteProject = async (req,res,next) => {
+  try{
+    const { id } = req.params;
+    const project = await Project.findById(id);
 
+    if(!project){
+      return errorResponse(res,404,"Project not found");
+    }
+
+    if(project.imagePublicId){
+      try{
+        await cloudinary.uploader.destroy(project.imagePublicId);
+      } catch{}
+    }
+
+    await Project.findByIdAndDelete(id);
+
+    return successResponse(res,200,"Project deleted");
+  }catch(error){
+    next(error);
+  }
+}
 
 
 
