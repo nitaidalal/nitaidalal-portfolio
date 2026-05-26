@@ -2,7 +2,6 @@ import Profile from "../models/profile.model.js";
 import {updateProfileSchema} from "../validators/profileValidator.js"
 import {successResponse,errorResponse} from "../utils/apiResponse.js"
 import { cloudinary } from "../config/cloudinary.js";
-import e from "express";
 
 // ─── @route  GET /api/profile ─────────────────────────
 // ─── @access Public ───────────────────────────────────
@@ -35,7 +34,6 @@ export const updateProfile = async(req,res,next) => {
           return errorResponse(res, 404, "Profile not found");
         }
 
-        //findOneAndUpdate - if no profile data exists, create one (upsert:true)
         const profile = await Profile.findOneAndUpdate(
             {},
             { $set: result.data },
@@ -62,7 +60,6 @@ export const updateAvatar = async(req,res,next) => {
             return errorResponse(res,404,"Profile not found");
         }
 
-        // If there's an existing avatar, delete it from Cloudinary
         if(profile?.avatarPublicId){
             try {
                 await cloudinary.uploader.destroy(
@@ -108,7 +105,6 @@ export const updateResume = async(req,res,next) => {
             return errorResponse(res,404,"Profile not found");
         }
 
-        // If there's an existing resume, delete it from Cloudinary
         if(profile?.resumePublicId){
             try {
                 await cloudinary.uploader.destroy(profile.resumePublicId,
