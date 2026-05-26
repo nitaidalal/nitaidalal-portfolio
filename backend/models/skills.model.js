@@ -14,11 +14,6 @@ const skillSchema = new mongoose.Schema(
       enum: ["Languages", "Frameworks", "Databases", "Tools", "Devops"],
     },
 
-    categoryOrder: {
-      type: Number,
-      default: 0, 
-    },
-
     // slug from https://devicons.dev — e.g. "react", "nodejs", "mongodb"
     iconSlug: {
       type: String,
