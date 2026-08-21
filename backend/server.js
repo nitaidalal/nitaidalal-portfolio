@@ -11,7 +11,7 @@ import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 import { generalLimiter } from "./middleware/rateLimiter.js";
 
 // import Routes
-import authRoutes from "./routes/auth.route.js";
+import router from "./routes/index.js";
 
 
 dotenv.config();
@@ -63,7 +63,7 @@ app.get("/api/health", (req, res) => {
 
 
 // ─── Routes ───────────────────────────────────────────
-app.use("/api/auth", authRoutes);
+app.use("/api", router);
 
 
 //error handling middleware should be last
