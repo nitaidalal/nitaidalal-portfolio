@@ -18,8 +18,15 @@ const certificationSchema = new Schema(
       type: Date,
       required: [true, "Issue date is required"],
     },
-
-    credentialUrl: {
+    imageUrl: {
+      type: String,
+      default: "",
+    },
+    imagePublicId: {
+      type: String,
+      default: "",
+    },
+    verificationUrl: {
       type: String,
       default: "",
     },
