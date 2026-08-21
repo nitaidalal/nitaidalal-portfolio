@@ -13,10 +13,10 @@ import protect from "../middleware/authMiddleware.js";
 const router = express.Router();
 
 router.get("/featured", getFeaturedProjects);
+router.get("/admin/all", protect, getAdminAllProjects);
 router.get("/", getAllProjects);
 router.get("/:id", getProjectById);
 
-router.get("/admin/all", protect, getAdminAllProjects);
 router.post("/", protect, createProject);
 router.put("/:id", protect, updateProject);
 router.delete("/:id", protect, deleteProject);

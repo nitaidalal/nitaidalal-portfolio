@@ -92,12 +92,11 @@ const baseProjectSchema = z.object({
     .nullable()
     .optional(),
 
-  featured: z.boolean().default(false),
+  isFeatured: z.boolean().default(false),
 
   isPublished: z.boolean().default(false),
 
-  publishedAt: z
-    .coerce
+  publishedAt: z.coerce
     .date({
       invalid_type_error: "Published date must be a valid date",
     })

@@ -32,8 +32,7 @@ const baseCertificationSchema = z.object({
     invalid_type_error: "Issue date must be a valid date",
   }),
 
-  credentialUrl: optionalUrl("Invalid credential URL"),
-
+  verificationUrl: optionalUrl("Invalid verification URL"),
 });
 
 export const createCertificationSchema = baseCertificationSchema;

@@ -1,14 +1,12 @@
-import {z} from 'zod';
+import { z } from "zod";
 
-export const createContactSchema = z.object({
+export const contactSchema = z.object({
   name: z
-    .string({ required_error: "Name is required" })
+    .string()
     .min(3, { message: "Name must be at least 3 characters" })
     .max(100, { message: "Name must be at most 100 characters" }),
 
-  email: z
-    .string({ required_error: "Email is required" })
-    .email({ message: "Invalid email address" }),
+  email: z.string().email({ message: "Invalid email address" }),
 
   subject: z
     .string()
@@ -17,14 +15,12 @@ export const createContactSchema = z.object({
     .optional(),
 
   message: z
-    .string({ required_error: "Message is required" })
+    .string()
     .trim()
     .min(10, {
       message: "Message must be at least 10 characters",
     })
-    .max(500, { message: "Message must be at most 500 characters" }),
-
+    .max(500, {
+      message: "Message must be at most 500 characters",
+    }),
 });
-
-
-export const updateContactSchema = createContactSchema.partial();
