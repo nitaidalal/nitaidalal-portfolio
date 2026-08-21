@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { fi } from "zod/v4/locales";
 
 const educationSchema = new mongoose.Schema(
   {

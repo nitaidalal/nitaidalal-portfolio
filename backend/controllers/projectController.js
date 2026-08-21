@@ -1,6 +1,6 @@
 import Project from "../models/project.model.js";
 import { errorResponse, successResponse } from "../utils/apiResponse.js";
-import { createProjectSchema, updateProfileSchema } from "../validators/projectValidator.js";
+import { createProjectSchema, updateProjectSchema } from "../validators/projectValidator.js";
 
 // GET / projects / featured;
 export const getFeaturedProjects = async (req, res, next) => {
@@ -55,6 +55,16 @@ export const getProjectById = async (req,res,next) => {
         next(error);
     }
 }
+
+// GET /admin/projects/all
+export const getAdminAllProjects = async (req, res, next) => {
+  try {
+    const projects = await Project.find().sort({ createdAt: -1 });
+    return successResponse(res, 200, "Projects fetched", projects);
+  } catch (error) {
+    next(error);
+  }
+};
 
 // POST /api/projects 
 export const createProject = async (req,res,next) => {

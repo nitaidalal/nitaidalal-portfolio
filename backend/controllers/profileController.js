@@ -28,11 +28,6 @@ export const updateProfile = async(req,res,next) => {
           return errorResponse(res, 400, errors[0]);
         }
 
-        const profile = await Profile.findOne();
-
-        if (!profile) {
-          return errorResponse(res, 404, "Profile not found");
-        }
 
         const profile = await Profile.findOneAndUpdate(
             {},
