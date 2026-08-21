@@ -1,4 +1,4 @@
-import {z} from zod;
+import {z} from "zod";
 
 const optionalUrl = (message) =>
   z.string().url({ message }).optional();
