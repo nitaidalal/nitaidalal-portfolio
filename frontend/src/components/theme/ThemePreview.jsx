@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import { Check } from "lucide-react";
 
 // Mini visual preview card — shows bg, card surface, primary dot, accent dot
@@ -6,7 +6,7 @@ const ThemePreview = ({ theme, appearance, isActive, onClick }) => {
   const colors = theme.preview[appearance];
 
   return (
-    <motion.button
+    <Motion.button
       onClick={onClick}
       whileHover={{ scale: 1.04 }}
       whileTap={{ scale: 0.97 }}
@@ -65,7 +65,7 @@ const ThemePreview = ({ theme, appearance, isActive, onClick }) => {
       >
         {theme.description}
       </p>
-    </motion.button>
+    </Motion.button>
   );
 };
 

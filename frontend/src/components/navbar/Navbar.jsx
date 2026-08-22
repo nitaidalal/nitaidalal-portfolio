@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import { Menu, Code2 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
@@ -91,7 +91,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <motion.header
+    <Motion.header
       initial={{ y: -64, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{
@@ -137,7 +137,7 @@ const Navbar = () => {
           "
           aria-label="Home"
         >
-          <motion.div
+          <Motion.div
             whileHover={{
               rotate: 12,
               scale: 1.1,
@@ -158,7 +158,7 @@ const Navbar = () => {
             "
           >
             <Code2 size={16} className="text-primary-foreground" />
-          </motion.div>
+          </Motion.div>
 
           <span
             className="
@@ -187,7 +187,7 @@ const Navbar = () => {
           {/* Mobile menu */}
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
-              <motion.button
+              <Motion.button
                 whileTap={{ scale: 0.92 }}
                 className="
                   md:hidden
@@ -202,7 +202,7 @@ const Navbar = () => {
                 aria-label="Open menu"
               >
                 <Menu size={20} />
-              </motion.button>
+              </Motion.button>
             </SheetTrigger>
 
             <SheetContent
@@ -236,7 +236,7 @@ const Navbar = () => {
                 {/* Mobile navigation */}
                 <div className="flex flex-col gap-1 px-4 py-6">
                   {NAV_LINKS.map((link, i) => (
-                    <motion.a
+                    <Motion.a
                       key={link.href}
                       href={link.href}
                       initial={{
@@ -272,7 +272,7 @@ const Navbar = () => {
                       "
                     >
                       {link.label}
-                    </motion.a>
+                    </Motion.a>
                   ))}
                 </div>
 
@@ -306,7 +306,7 @@ const Navbar = () => {
           </Sheet>
         </div>
       </nav>
-    </motion.header>
+    </Motion.header>
   );
 };
 
