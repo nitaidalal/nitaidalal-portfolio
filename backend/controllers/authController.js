@@ -1,20 +1,20 @@
 import Admin from "../models/admin.model.js";
 import {successResponse, errorResponse} from "../utils/apiResponse.js";
-import bcrypt from "bcryptjs";
+import {generateToken} from "../utils/genarateToken.js";
 
 
 //Admin Login 
 // @route -> POST /api/auth/login
 
-export const loginAdmin = async(req,res) => {
+export const loginAdmin = async(req,res,next) => {
     try {
         const {email,password} = req.body;
+        console.log("Login request received:", { email, password }); // Debug
 
         if(!email || !password){
             return errorResponse(res,400,"Email and password are required");
         }
 
-        //check if admin exit
         const admin = await Admin.findOne({email}).select("+password");
 
         if(!admin){
@@ -22,14 +22,13 @@ export const loginAdmin = async(req,res) => {
         }
 
         //check pass
-        const isMatch = await bcrypt.compare(password, admin.password);
+        const isMatch = await admin.comparePassword(password);
 
         if(!isMatch){
             return errorResponse(res,400,"Invalid credentials");
         }
 
         generateToken(res,admin._id);
-
         return successResponse(res,200,"Admin logged in successfully",{
             admin: {
                 id: admin._id,
@@ -46,7 +45,7 @@ export const loginAdmin = async(req,res) => {
 //Admin Logout
 // @route -> POST /api/auth/logout
 
-export const logoutAdmin = async(req,res,) => {
+export const logoutAdmin = async(req,res,next) => {
     try {
         res.clearCookie("token", {
             httpOnly: true,
@@ -109,18 +108,16 @@ export const changePassword = async(req,res,next) => {
             return errorResponse(res,404,"Admin not found");
         }
 
-        const isMatch = await bcrypt.compare(currentPassword, admin.password);
+        const isMatch = await admin.comparePassword(currentPassword);
 
         if(!isMatch){
             return errorResponse(res,400,"Current password is incorrect");
         }
+        admin.password = newPassword;
 
-        const salt = await bcrypt.genSalt(10);
-        admin.password = await bcrypt.hash(newPassword, salt);
         await admin.save();
 
         return successResponse(res,200,"Password changed successfully");
-
     } catch (error) {
         next(error);
     }

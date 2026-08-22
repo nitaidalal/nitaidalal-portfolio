@@ -11,13 +11,13 @@ import contactRoutes from "./contact.route.js";
 
 const router = express.Router();
 
-router.use("/api/auth", authRoutes);
-router.use("/api/profile", profileRoutes);
-router.use("/api/projects", projectRoutes);
-router.use("/api/skills", skillRoutes);
-router.use("/api/education", educationRoutes);
-router.use("/api/certifications", certRoutes);
-router.use("/api/achievements", achievementRoutes);
-router.use("/api/contact", contactRoutes);
+router.use("/auth", authRoutes);
+router.use("/profile", profileRoutes);
+router.use("/projects", projectRoutes);
+router.use("/skills", skillRoutes);
+router.use("/education", educationRoutes);
+router.use("/certifications", certRoutes);
+router.use("/achievements", achievementRoutes);
+router.use("/contact", contactRoutes);
 
 export default router;
