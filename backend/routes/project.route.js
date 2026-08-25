@@ -9,6 +9,7 @@ import {
   deleteProject
 } from "../controllers/projectController.js";
 import protect from "../middleware/authMiddleware.js";
+import { uploadProjectImage } from "../middleware/uploadMiddleware.js";
 
 const router = express.Router();
 
@@ -17,8 +18,8 @@ router.get("/admin/all", protect, getAdminAllProjects);
 router.get("/", getAllProjects);
 router.get("/:id", getProjectById);
 
-router.post("/", protect, createProject);
-router.put("/:id", protect, updateProject);
+router.post("/", protect,uploadProjectImage, createProject);
+router.put("/:id", protect, uploadProjectImage, updateProject);
 router.delete("/:id", protect, deleteProject);
 
 export default router;

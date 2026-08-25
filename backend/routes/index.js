@@ -18,6 +18,6 @@ router.use("/skills", skillRoutes);
 router.use("/education", educationRoutes);
 router.use("/certifications", certRoutes);
 router.use("/achievements", achievementRoutes);
-router.use("/contact", contactRoutes);
+router.use("/messages", contactRoutes);
 
 export default router;

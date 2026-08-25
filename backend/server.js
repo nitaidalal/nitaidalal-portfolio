@@ -48,7 +48,7 @@ if (process.env.NODE_ENV === "development") {
 // ─────────────────────────────────────────
 // Rate Limiter
 // ─────────────────────────────────────────
-app.use(generalLimiter);
+// app.use(generalLimiter);
 
 
 // ─── Health Check ─────────────────────────────────────

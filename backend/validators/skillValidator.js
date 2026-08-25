@@ -29,8 +29,6 @@ export const createSkillSchema = z.object({
     },
   ),
 
-  categoryOrder: orderSchema,
-
   iconSlug: z.string().trim().optional(),
 
   proficiencyPercentage: z

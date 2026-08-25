@@ -1,91 +1,87 @@
 import { z } from "zod";
 
-// ─────────────────────────────────────────────
-// Base Education Schema
-// ─────────────────────────────────────────────
+const orderSchema = z
+  .number({
+    required_error: "Order is required",
+    invalid_type_error: "Order must be a number",
+  })
+  .int({
+    message: "Order must be an integer",
+  })
+  .min(0, {
+    message: "Order cannot be negative",
+  })
+  .default(0);
+
 const baseEducationSchema = z.object({
   institution: z
     .string({
       required_error: "Institution name is required",
+      invalid_type_error: "Institution name must be a string",
     })
     .trim()
-    .min(2, {
-      message: "Institution name must be at least 2 characters",
-    })
-    .max(150, {
-      message: "Institution name must be at most 150 characters",
+    .min(1, {
+      message: "Institution name cannot be empty",
     }),
 
-  type: z.enum(["School", "College"], {
-    required_error: "Type is required",
-    invalid_type_error: "Invalid education type",
+  type: z.enum(["College", "School"], {
+    required_error: "Education type is required",
+    invalid_type_error: "Education type must be College or School",
   }),
 
-  startYear: z.coerce
+  order: orderSchema,
+
+  // College
+  startYear: z
     .number({
       invalid_type_error: "Start year must be a number",
     })
     .int({
       message: "Start year must be an integer",
     })
-    .min(1950, {
-      message: "Start year is too old",
-    })
-    .max(new Date().getFullYear(), {
-      message: "Start year cannot be in the future",
-    })
     .optional(),
 
-  endYear: z.coerce
+  endYear: z
     .number({
       invalid_type_error: "End year must be a number",
     })
     .int({
       message: "End year must be an integer",
     })
-    .nullable()
     .optional(),
 
-  order: z.coerce
+  // School
+  passingYear: z
     .number({
-      invalid_type_error: "Order must be a number",
+      invalid_type_error: "Passing year must be a number",
     })
     .int({
-      message: "Order must be an integer",
+      message: "Passing year must be an integer",
     })
-    .min(0, {
-      message: "Order cannot be negative",
-    })
-    .default(0),
+    .optional(),
 
-  // ─────────────────────────────────────────
-  // College Fields
-  // ─────────────────────────────────────────
   degree: z
-    .string()
-    .trim()
-    .max(100, {
-      message: "Degree must be at most 100 characters",
+    .string({
+      invalid_type_error: "Degree must be a string",
     })
+    .trim()
     .optional(),
 
   branch: z
-    .string()
-    .trim()
-    .max(150, {
-      message: "Branch must be at most 150 characters",
+    .string({
+      invalid_type_error: "Branch must be a string",
     })
+    .trim()
     .optional(),
 
   currentYear: z
-    .string()
-    .trim()
-    .max(50, {
-      message: "Current year must be at most 50 characters",
+    .string({
+      invalid_type_error: "Current year must be a string",
     })
+    .trim()
     .optional(),
 
-  cgpa: z.coerce
+  cgpa: z
     .number({
       invalid_type_error: "CGPA must be a number",
     })
@@ -93,23 +89,18 @@ const baseEducationSchema = z.object({
       message: "CGPA cannot be negative",
     })
     .max(10, {
-      message: "CGPA cannot exceed 10",
+      message: "CGPA cannot be greater than 10",
     })
-    .nullable()
     .optional(),
 
-  // ─────────────────────────────────────────
-  // School Fields
-  // ─────────────────────────────────────────
   board: z
-    .string()
-    .trim()
-    .max(100, {
-      message: "Board name must be at most 100 characters",
+    .string({
+      invalid_type_error: "Board must be a string",
     })
+    .trim()
     .optional(),
 
-  percentage: z.coerce
+  percentage: z
     .number({
       invalid_type_error: "Percentage must be a number",
     })
@@ -117,90 +108,90 @@ const baseEducationSchema = z.object({
       message: "Percentage cannot be negative",
     })
     .max(100, {
-      message: "Percentage cannot exceed 100",
+      message: "Percentage cannot be greater than 100",
     })
-    .nullable()
     .optional(),
 
   standard: z
-    .string()
-    .trim()
-    .max(20, {
-      message: "Standard must be at most 20 characters",
+    .string({
+      invalid_type_error: "Standard must be a string",
     })
+    .trim()
     .optional(),
 });
 
-// ─────────────────────────────────────────────
-// Conditional Validation
-// ─────────────────────────────────────────────
-const validateEducationByType = (data) => {
-  // ───────────── College Validation ─────────────
-  if (data.type === "College") {
-    if (!data.degree || data.degree.trim() === "") {
-      return false;
+export const createEducationSchema = baseEducationSchema.superRefine(
+  (data, ctx) => {
+    // ─────────────────────────────────────────────
+    // COLLEGE VALIDATION
+    // ─────────────────────────────────────────────
+    if (data.type === "College") {
+      if (data.startYear === undefined) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["startYear"],
+          message: "Start year is required for college",
+        });
+      }
+
+      if (data.endYear === undefined) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["endYear"],
+          message: "End year is required for college",
+        });
+      }
+
+      if (!data.degree) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["degree"],
+          message: "Degree is required for college",
+        });
+      }
+
+      if (!data.branch) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["branch"],
+          message: "Branch is required for college",
+        });
+      }
     }
 
-    if (!data.branch || data.branch.trim() === "") {
-      return false;
+    // ─────────────────────────────────────────────
+    // SCHOOL VALIDATION
+    // ─────────────────────────────────────────────
+    if (data.type === "School") {
+      if (data.passingYear === undefined) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["passingYear"],
+          message: "Passing year is required for school",
+        });
+      }
+
+      if (!data.board) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["board"],
+          message: "Board is required for school",
+        });
+      }
+
+      if (!data.standard) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["standard"],
+          message: "Standard is required for school",
+        });
+      }
     }
-  }
+  },
+);
 
-  // ───────────── School Validation ─────────────
-  if (data.type === "School") {
-    if (!data.board || data.board.trim() === "") {
-      return false;
-    }
-
-    if (!data.standard || data.standard.trim() === "") {
-      return false;
-    }
-  }
-
-  return true;
-};
-
-// ─────────────────────────────────────────────
-// Year Validation
-// endYear >= startYear
-// ─────────────────────────────────────────────
-const validateYears = (data) => {
-  if (!data.endYear) {
-    return true;
-  }
-
-  return data.endYear >= data.startYear;
-};
-
-// ─────────────────────────────────────────────
-// Create Education Schema
-// ─────────────────────────────────────────────
-export const createEducationSchema = baseEducationSchema
-
-  // Type-based validation
-  .refine(validateEducationByType, {
-    message: "Required fields missing based on education type",
-    path: ["type"],
-  })
-
-  // Year validation
-  .refine(validateYears, {
-    message: "End year cannot be before start year",
-    path: ["endYear"],
-  });
-
-// ─────────────────────────────────────────────
-// Update Education Schema
-// ─────────────────────────────────────────────
 export const updateEducationSchema = baseEducationSchema
-  .partial()
-
-  .refine(validateEducationByType, {
-    message: "Required fields missing based on education type",
-    path: ["type"],
+  .omit({
+    type: true,
   })
-
-  .refine(validateYears, {
-    message: "End year cannot be before start year",
-    path: ["endYear"],
-  });
+  .partial();

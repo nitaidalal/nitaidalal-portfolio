@@ -67,17 +67,24 @@ export const getAdminAllProjects = async (req, res, next) => {
 };
 
 // POST /api/projects 
+
+const parseBoolean = (value) => {
+  if (typeof value === "boolean") return value;
+  if (typeof value === "string") return value === "true";
+  return value;
+};
+
 export const createProject = async (req,res,next) => {
     try {
-      if (req.body.techTags && typeof req.body.techTas === "string") {
+      if (req.body.techTags && typeof req.body.techTags === "string") {
         req.body.techTags = JSON.parse(req.body.techTags);
       }
 
       if (req.body.isFeatured !== undefined) {
-        req.body.isFeatured = req.body.isFeatured === "true";
+        req.body.isFeatured = parseBoolean(req.body.isFeatured);
       }
       if (req.body.isPublished !== undefined) {
-        req.body.isPublished = req.body.isPublished === "true";
+        req.body.isPublished = parseBoolean(req.body.isPublished);
       }
 
       const result = createProjectSchema.safeParse(req.body);
@@ -126,11 +133,11 @@ export const updateProject = async (req,res,next) => {
     }
 
     if (req.body.isFeatured !== undefined) {
-      req.body.isFeatured = req.body.isFeatured === "true";
+      req.body.isFeatured = parseBoolean(req.body.isFeatured);
     }
 
     if (req.body.isPublished !== undefined) {
-      req.body.isPublished = req.body.isPublished === "true";
+      req.body.isPublished = parseBoolean(req.body.isPublished);
     }
 
     const result = updateProjectSchema.safeParse(req.body);

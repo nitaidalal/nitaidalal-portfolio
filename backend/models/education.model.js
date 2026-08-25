@@ -1,81 +1,75 @@
 import mongoose from "mongoose";
 
+
 const educationSchema = new mongoose.Schema(
   {
     institution: {
       type: String,
-      required: [true, "Institution name is required"],
+      required: true,
       trim: true,
     },
 
     type: {
       type: String,
-      enum: ["School", "College"],
-      required: [true, "Type is required"],
+      enum: ["College", "School"],
+      required: true,
     },
 
+    // College only
     startYear: {
       type: Number,
     },
 
     endYear: {
       type: Number,
-      default: null, // null = still studying
+      default: null,
+    },
+
+    // School only — passing year
+    passingYear: {
+      type: Number,
+    },
+
+    degree: {
+      type: String,
+      trim: true,
+    },
+
+    branch: {
+      type: String,
+      trim: true,
+    },
+
+    currentYear: {
+      type: String,
+      trim: true,
+    },
+
+    cgpa: {
+      type: Number,
+    },
+
+    board: {
+      type: String,
+      trim: true,
+    },
+
+    percentage: {
+      type: Number,
+    },
+
+    standard: {
+      type: String,
+      trim: true,
     },
 
     order: {
       type: Number,
       default: 0,
     },
-
-    //--------------for college----------------
-
-    degree: {
-      type: String,
-      trim: true,
-      default: "",
-    },
-
-    branch: {
-      type: String, // "Computer Science & Engineering"
-      default: "",
-    },
-
-    currentYear: {
-      type: String, // "3rd Year"
-      default: "",
-    },
-
-    cgpa: {
-      type: Number,
-      min: 0,
-      max: 10,
-      default: null,
-    },
-
-    //--------------for school----------------
-
-    board: {
-      type: String,
-      trim: true,
-      default: "",
-    },
-
-    percentage: {
-      type: Number,
-      min: 0,
-      max: 100,
-      default: null,
-    },
-
-    standard: {
-      type: String, // "10th", "12th"
-      trim: true,
-      default: "",
-    },
   },
   { timestamps: true },
-);  
+);
 
 
 const Education = mongoose.model("Education", educationSchema);
