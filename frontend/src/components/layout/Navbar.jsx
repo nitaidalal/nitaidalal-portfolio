@@ -61,7 +61,7 @@ const Navbar = () => {
             <TbCode className="text-primary-foreground text-base" />
           </Motion.div>
           <span className="font-bold text-base text-foreground tracking-tight">
-            Nitai's Portfolio<span className="text-primary"></span>
+            Nitai Dalal<span className="text-primary"></span>
           </span>
         </a>
 
@@ -112,7 +112,7 @@ const Navbar = () => {
                 <div className="flex items-center justify-between
                                 px-6 py-5 border-b border-border">
                   <span className="font-bold text-foreground">
-                    Nitai's Portfolio<span className="text-primary">.</span>
+                    Nitai Dalal<span className="text-primary">.</span>
                   </span>
                 </div>
 
@@ -139,14 +139,6 @@ const Navbar = () => {
                   ))}
                 </div>
 
-                {/* Theme switcher in sheet */}
-                <div className="mt-auto px-6 py-5 border-t border-border">
-                  <p className="text-xs text-muted-foreground mb-3
-                                font-medium uppercase tracking-wider">
-                    Theme
-                  </p>
-                  <ThemeSwitcher inSheet />
-                </div>
               </div>
             </SheetContent>
           </Sheet>
