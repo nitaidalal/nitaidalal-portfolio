@@ -16,8 +16,7 @@ const ConfirmDialog = ({
   description = "This action cannot be undone.",
   confirmLabel = "Delete",
   cancelLabel = "Cancel",
-  onConfirm,
-  variant = "destructive", // "destructive" | "default"
+  onConfirm
 }) => {
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
@@ -43,15 +42,7 @@ const ConfirmDialog = ({
             {cancelLabel}
           </AlertDialogCancel>
 
-          <AlertDialogAction
-            onClick={onConfirm}
-            className={`rounded-lg text-sm font-medium transition-opacity
-                          hover:opacity-90 ${
-                            variant === "destructive"
-                              ? "bg-destructive text-destructive-foreground"
-                              : "bg-primary text-primary-foreground"
-                          }`}
-          >
+          <AlertDialogAction onClick={onConfirm} variant="destructive" className="bg-red-500 text-white hover:bg-red-600">
             {confirmLabel}
           </AlertDialogAction>
         </AlertDialogFooter>

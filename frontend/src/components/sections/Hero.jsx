@@ -204,36 +204,38 @@ const Hero = () => {
             {profile?.socialLinks && (
               <Motion.div
                 variants={itemVariants}
-                className="flex items-center gap-3 justify-center lg:justify-start"
+                className="flex flex-col items-center gap-3 lg:items-start"
               >
-                {Object.entries(SOCIAL_MAP).map(
-                  ([key, { icon: Icon, label }]) => {
-                    const url = profile.socialLinks[key];
-                    if (!url) return null;
-                    return (
-                      <Motion.a
-                        key={key}
-                        href={url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={label}
-                        whileHover={{ scale: 1.15, y: -2 }}
-                        whileTap={{ scale: 0.92 }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 400,
-                          damping: 17,
-                        }}
-                        className="w-10 h-10 rounded-xl bg-card border border-border
-                                 flex items-center justify-center text-muted-foreground
-                                 hover:text-primary hover:border-primary/40
-                                 hover:bg-accent transition-colors duration-200"
-                      >
-                        <Icon className="text-lg" />
-                      </Motion.a>
-                    );
-                  },
-                )}
+                <div className="flex items-center gap-3">
+                  {Object.entries(SOCIAL_MAP).map(
+                    ([key, { icon: Icon, label }]) => {
+                      const url = profile.socialLinks[key];
+                      if (!url) return null;
+                      return (
+                        <Motion.a
+                          key={key}
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={label}
+                          whileHover={{ scale: 1.15, y: -2 }}
+                          whileTap={{ scale: 0.92 }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 400,
+                            damping: 17,
+                          }}
+                          className="w-10 h-10 rounded-xl bg-card border border-border
+                                   flex items-center justify-center text-muted-foreground
+                                   hover:text-primary hover:border-primary/40
+                                   hover:bg-accent transition-colors duration-200"
+                        >
+                          <Icon className="text-lg" />
+                        </Motion.a>
+                      );
+                    },
+                  )}
+                </div>
 
                 {profile?.location && (
                   <Motion.div

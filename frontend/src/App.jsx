@@ -21,6 +21,8 @@ import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import AdminLayout from "./components/admin/layout/AdminLayout";
 
+import { Toaster } from "sonner"; 
+
 const ProtectedRoute = ({ children }) => {
   const { admin, loading } = useAuth();
 
@@ -50,72 +52,86 @@ const App = () => {
   useScrollTop();
 
   return (
-    <Routes>
-      {/* ── Public routes ───────────────────────── */}
-      <Route
-        path="/"
-        element={
-          <PublicLayout>
-            <Home />
-          </PublicLayout>
-        }
+    <>
+      <Toaster
+        position="top-right"
+        richColors
+        toastOptions={{
+          style: {
+            background: "var(--card)",
+            color: "var(--card-foreground)",
+            border: "1px solid var(--border)",
+            borderRadius: "12px",
+          }
+        }}
       />
-      <Route
-        path="/projects"
-        element={
-          <PublicLayout>
-            <AllProjects />
-          </PublicLayout>
-        }
-      />
+      <Routes>
+        {/* ── Public routes ───────────────────────── */}
+        <Route
+          path="/"
+          element={
+            <PublicLayout>
+              <Home />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/projects"
+          element={
+            <PublicLayout>
+              <AllProjects />
+            </PublicLayout>
+          }
+        />
 
-      {/* ── Admin login ─────────────────────────── */}
-      <Route path="/admin/login" element={<AdminLogin />} />
+        {/* ── Admin login ─────────────────────────── */}
+        <Route path="/admin/login" element={<AdminLogin />} />
 
-      {/* ── Protected admin routes ──────────────── */}
-      <Route
-        path="/admin"
-        element={
-          <ProtectedRoute>
-            <AdminLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route index element={<Navigate to="/admin/dashboard" replace />} />
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="profile" element={<ManageProfile />} />
-        <Route path="projects" element={<ManageProjects />} />
-        <Route path="skills" element={<ManageSkills />} />
-        <Route path="education" element={<ManageEducation />} />
-        <Route path="certifications" element={<ManageCertifications />} />
-        <Route path="achievements" element={<ManageAchievements />} />
-        <Route path="messages" element={<ManageMessages />} />
-      </Route>
+        {/* ── Protected admin routes ──────────────── */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<Navigate to="/admin/dashboard" replace />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="profile" element={<ManageProfile />} />
+          <Route path="projects" element={<ManageProjects />} />
+          <Route path="skills" element={<ManageSkills />} />
+          <Route path="education" element={<ManageEducation />} />
+          <Route path="certifications" element={<ManageCertifications />} />
+          <Route path="achievements" element={<ManageAchievements />} />
+          <Route path="messages" element={<ManageMessages />} />
+        </Route>
 
-      {/* ── 404 ─────────────────────────────────── */}
-      <Route
-        path="*"
-        element={
-          <div
-            className="min-h-screen bg-background flex items-center
+        {/* ── 404 ─────────────────────────────────── */}
+        <Route
+          path="*"
+          element={
+            <div
+              className="min-h-screen bg-background flex items-center
                         justify-center text-foreground"
-          >
-            <div className="text-center">
-              <h1 className="text-6xl font-bold text-primary mb-4">404</h1>
-              <p className="text-muted-foreground">Page not found</p>
-              <a
-                href="/"
-                className="mt-6 inline-block bg-primary text-primary-foreground
+            >
+              <div className="text-center">
+                <h1 className="text-6xl font-bold text-primary mb-4">404</h1>
+                <p className="text-muted-foreground">Page not found</p>
+                <a
+                  href="/"
+                  className="mt-6 inline-block bg-primary text-primary-foreground
                           px-6 py-2.5 rounded-lg text-sm font-medium
                           hover:opacity-90 transition-opacity"
-              >
-                Go Home
-              </a>
+                >
+                  Go Home
+                </a>
+              </div>
             </div>
-          </div>
-        }
-      />
-    </Routes>
+          }
+        />
+      </Routes>
+    </>
   );
 };
 
