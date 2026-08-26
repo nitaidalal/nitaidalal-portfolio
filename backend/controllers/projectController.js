@@ -1,4 +1,5 @@
 import Project from "../models/project.model.js";
+import { cloudinary } from "../config/cloudinary.js";
 import { errorResponse, successResponse } from "../utils/apiResponse.js";
 import { createProjectSchema, updateProjectSchema } from "../validators/projectValidator.js";
 
@@ -95,8 +96,8 @@ export const createProject = async (req,res,next) => {
           await cloudinary.uploader.destroy(req.file.filename);
           } catch {}
         }
-        const errors = result.error.errors.map((e) => e.message);
-        return errorResponse(res, 400, errors[0]);
+        console.log("Validation error:", result.error.issues[0].message);
+        return errorResponse(res, 400, result.error.issues[0].message);
       }
 
       const projectData = { ...result.data };
@@ -114,6 +115,7 @@ export const createProject = async (req,res,next) => {
 
       return successResponse(res, 201, "Project created", project);
     } catch (error) {
+      console.error("Error creating project:", error);
         next(error);
     }
 }
@@ -148,8 +150,7 @@ export const updateProject = async (req,res,next) => {
           await cloudinary.uploader.destroy(req.file.filename);
         } catch {}
       }
-      const errors = result.error.errors.map((e) => e.message);
-      return errorResponse(res, 400, errors[0]);
+      return errorResponse(res, 400, result.error.issues[0].message);
     }
 
     const updateProjectData = { ...result.data };

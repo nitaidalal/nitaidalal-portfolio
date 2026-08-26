@@ -1,5 +1,8 @@
 import { z } from "zod";
 
+const normalizeEmptyString = (value) =>
+  value === "" || value === null ? undefined : value;
+
 // ─────────────────────────────────────────────
 // Allows:
 // ✅ valid URL
@@ -7,7 +10,10 @@ import { z } from "zod";
 // ✅ ""
 // ─────────────────────────────────────────────
 const optionalUrl = (message) =>
-  z.string().url({ message }).optional();
+  z.preprocess(
+    normalizeEmptyString,
+    z.string().url({ message }).optional(),
+  );
 
 // ─────────────────────────────────────────────
 // endDate >= startDate
@@ -45,13 +51,16 @@ const baseProjectSchema = z.object({
       message: "Short description must be at most 200 characters",
     }),
 
-  description: z
-    .string()
-    .trim()
-    .max(5000, {
-      message: "Description must be at most 5000 characters",
-    })
-    .optional(),
+  description: z.preprocess(
+    normalizeEmptyString,
+    z
+      .string()
+      .trim()
+      .max(5000, {
+        message: "Description must be at most 5000 characters",
+      })
+      .optional(),
+  ),
 
   techTags: z
     .array(
@@ -79,18 +88,24 @@ const baseProjectSchema = z.object({
 
   repoUrl: optionalUrl("Invalid repository URL"),
 
-  startDate: z.coerce
-    .date({
-      invalid_type_error: "Start date must be a valid date",
-    })
-    .optional(),
+  startDate: z.preprocess(
+    normalizeEmptyString,
+    z.coerce
+      .date({
+        invalid_type_error: "Start date must be a valid date",
+      })
+      .optional(),
+  ),
 
-  endDate: z.coerce
-    .date({
-      invalid_type_error: "End date must be a valid date",
-    })
-    .nullable()
-    .optional(),
+  endDate: z.preprocess(
+    normalizeEmptyString,
+    z.coerce
+      .date({
+        invalid_type_error: "End date must be a valid date",
+      })
+      .nullable()
+      .optional(),
+  ),
 
   isFeatured: z.boolean().default(false),
 

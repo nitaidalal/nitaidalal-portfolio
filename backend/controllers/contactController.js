@@ -12,7 +12,9 @@ export const createContact = async (req, res, next) => {
       return errorResponse(res, 400, result.error.issues[0].message);
     }
 
-    return successResponse(res, 201, "Message sent successfully", result.data);
+    const contact = await Contact.create(result.data);
+
+    return successResponse(res, 201, "Message sent successfully", contact);
   } catch (error) {
     next(error);
   }

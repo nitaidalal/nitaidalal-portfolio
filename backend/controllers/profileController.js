@@ -24,8 +24,7 @@ export const updateProfile = async(req,res,next) => {
     try {
         const result = updateProfileSchema.safeParse(req.body);
         if (!result.success) {
-          const errors = result.error.errors.map((e) => e.message);
-          return errorResponse(res, 400, errors[0]);
+          return errorResponse(res, 400, result.error.issues[0].message);
         }
 
 
