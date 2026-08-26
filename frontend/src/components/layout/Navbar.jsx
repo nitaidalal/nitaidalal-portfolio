@@ -8,6 +8,10 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import ThemeSwitcher from "../theme/ThemeSwitcher";
+import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
+import useAuth from "../../hooks/useAuth";
+import { APP_ROUTES } from "../../utils/constants";
 
 const NAV_LINKS = [
   { label: "About",        href: "#about"        },
@@ -29,6 +33,24 @@ const Navbar = () => {
   const [scrolled,   setScrolled]   = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  const { admin } = useAuth();
+  const navigate = useNavigate();
+  const pressTimer = useRef(null);
+
+  const handlePressStart = () => {
+    pressTimer.current = setTimeout(() => {
+      // already logged in → go to dashboard, else → go to login
+      if (admin) {
+        navigate(APP_ROUTES.ADMIN_DASHBOARD);
+      } else {
+        navigate(APP_ROUTES.ADMIN_LOGIN);
+      }
+    }, 1500);
+  };
+
+  const handlePressEnd = () => {
+    clearTimeout(pressTimer.current);
+  };
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -38,7 +60,7 @@ const Navbar = () => {
   return (
     <Motion.header
       initial={{ y: -64, opacity: 0 }}
-      animate={{ y: 0,   opacity: 1 }}
+      animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
         scrolled
@@ -46,12 +68,21 @@ const Navbar = () => {
           : "bg-transparent"
       }`}
     >
-      <nav className="max-w-6xl mx-auto px-4 sm:px-6 h-16
-                      flex items-center justify-between gap-4">
-
+      <nav
+        className="max-w-6xl mx-auto px-4 sm:px-6 h-16
+                      flex items-center justify-between gap-4"
+      >
         {/* ── Logo ──────────────────────────────── */}
-        <a href="/" aria-label="Home"
-           className="flex items-center gap-2 flex-shrink-0">
+        <a
+          href="/"
+          ref={pressTimer}
+          onMouseDown={handlePressStart}
+          onMouseUp={handlePressEnd}
+          onTouchStart={handlePressStart}
+          onTouchEnd={handlePressEnd}
+          aria-label="Home"
+          className="flex items-center gap-2 flex-shrink-0"
+        >
           <Motion.div
             whileHover={{ rotate: 12, scale: 1.1 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -77,9 +108,11 @@ const Navbar = () => {
                          group"
             >
               {link.label}
-              <span className="absolute -bottom-0.5 left-0 h-px w-0
+              <span
+                className="absolute -bottom-0.5 left-0 h-px w-0
                                bg-primary transition-all duration-300
-                               group-hover:w-full" />
+                               group-hover:w-full"
+              />
             </a>
           ))}
         </div>
@@ -107,10 +140,11 @@ const Navbar = () => {
               className="w-72 bg-card border-l border-border p-0"
             >
               <div className="flex flex-col h-full">
-
                 {/* Sheet header */}
-                <div className="flex items-center justify-between
-                                px-6 py-5 border-b border-border">
+                <div
+                  className="flex items-center justify-between
+                                px-6 py-5 border-b border-border"
+                >
                   <span className="font-bold text-foreground">
                     Nitai Dalal<span className="text-primary">.</span>
                   </span>
@@ -123,7 +157,7 @@ const Navbar = () => {
                       key={link.href}
                       href={link.href}
                       initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0  }}
+                      animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.05, duration: 0.2 }}
                       onClick={(e) => {
                         handleScroll(e, link.href);
@@ -138,7 +172,6 @@ const Navbar = () => {
                     </Motion.a>
                   ))}
                 </div>
-
               </div>
             </SheetContent>
           </Sheet>

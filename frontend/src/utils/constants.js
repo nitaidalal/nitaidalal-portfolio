@@ -16,13 +16,13 @@ export const API_ROUTES = {
   CONTACT: "/messages",
 
   // admin
-  ADMIN_PROJECTS: "/admin/projects",
-  ADMIN_SKILLS: "/admin/skills",
-  ADMIN_EDUCATION: "/admin/education",
-  ADMIN_CERTIFICATIONS: "/admin/certifications",
-  ADMIN_ACHIEVEMENTS: "/admin/achievements",
-  ADMIN_PROFILE: "/admin/profile",
-  ADMIN_MESSAGES: "/admin/messages",
+  ADMIN_PROJECTS: "/projects",
+  ADMIN_SKILLS: "/skills",
+  ADMIN_EDUCATION: "/education",
+  ADMIN_CERTIFICATIONS: "/certifications",
+  ADMIN_ACHIEVEMENTS: "/achievements",
+  ADMIN_PROFILE: "/profile",
+  ADMIN_MESSAGES: "/messages",
 };
 
 export const APP_ROUTES = {

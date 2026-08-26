@@ -1,7 +1,10 @@
+import { Link } from "react-router-dom";
 import { motion as Motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram } from "react-icons/fa";
 import { SiLeetcode } from "react-icons/si";
 import { TbCode } from "react-icons/tb";
+import useAuth from "../../hooks/useAuth";
+import { APP_ROUTES } from "../../utils/constants";
 import PageWrapper from "./PageWrapper";
 
 const SOCIAL_LINKS = [
@@ -13,6 +16,7 @@ const SOCIAL_LINKS = [
 
 const Footer = () => {
   const year = new Date().getFullYear();
+  const { admin } = useAuth();
 
   return (
     <footer className="border-t border-border bg-card mt-24">
@@ -66,6 +70,18 @@ const Footer = () => {
           <p className="text-xs text-muted-foreground text-center sm:text-right">
             © {year} Nitai Dalal. All rights reserved.
           </p>
+        </div>
+
+        {/* Hidden admin dot */}
+        <div className="flex justify-center pb-4">
+          <Link
+            to={admin ? APP_ROUTES.ADMIN_DASHBOARD : APP_ROUTES.ADMIN_LOGIN}
+            className="text-xs text-muted-foreground/30 hover:text-muted-foreground
+                       transition-colors duration-200"
+            aria-label="Admin"
+          >
+            ·
+          </Link>
         </div>
       </PageWrapper>
     </footer>
