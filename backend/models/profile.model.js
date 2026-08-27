@@ -7,6 +7,21 @@ const profileSchema = new mongoose.Schema(
       required: [true, "Name is required"],
       trim: true,
     },
+    role: {
+      type: String, // "Full Stack Developer"
+      trim: true,
+      default: "",
+    },
+    education: {
+      type: String, // "B.Tech CSE (AI & ML)"
+      trim: true,
+      default: "",
+    },
+    description: {
+      type: String, // second paragraph — longer about me
+      trim: true,
+      default: "",
+    },
 
     taglines: {
       type: [String],

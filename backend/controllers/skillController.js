@@ -9,9 +9,10 @@ import { errorResponse, successResponse } from "../utils/apiResponse.js";
 //--------- GET /api/skills---------
 export const getAllSkills = async (req, res, next) => {
   try {
-    const allSkills = await Skill.find().sort({ skillOrder: 1 });
+    const { featured } = req.query;
+    const query = featured === "true" ? { isFeatured: true } : {};
+    const allSkills = await Skill.find(query).sort({ skillOrder: 1 });
 
-    // group by category for frontend rendering
     const groupedSkills = allSkills.reduce((acc, skill) => {
       if (!acc[skill.category]) {
         acc[skill.category] = [];

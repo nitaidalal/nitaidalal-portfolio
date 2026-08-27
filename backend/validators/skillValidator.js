@@ -39,6 +39,7 @@ export const createSkillSchema = z.object({
     .max(100, { message: "Proficiency percentage cannot be greater than 100" }),
 
   skillOrder: orderSchema,
+  isFeatured: z.boolean().default(false),
 });
 
 

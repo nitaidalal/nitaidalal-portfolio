@@ -53,7 +53,7 @@ export const uploadProjectImage = multer({
 }).single("project_image");
 
 export const uploadCertImage = multer({
-    storage:createStorage("certificate_images",["jpg","jpeg","png"]),
+    storage:createStorage("certificate_image",["jpg","jpeg","png"]),
     fileFilter:imageFilter,
     limits:{fileSize: 2 * 1024 * 1024}
 }).single("certificate_image");
