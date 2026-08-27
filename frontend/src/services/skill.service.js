@@ -7,6 +7,11 @@ export const skillService = {
     return res.data;
   },
 
+  getFeatured: async () => {
+    const res = await axiosInstance.get(`${API_ROUTES.SKILLS}?featured=true`);
+    return res.data;
+  },
+
   create: async (data) => {
     const res = await axiosInstance.post(API_ROUTES.ADMIN_SKILLS, data);
     return res.data;

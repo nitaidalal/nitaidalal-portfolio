@@ -14,6 +14,7 @@ import LoadingSpinner from "../../components/shared/LoadingSpinner";
 import EmptyState from "../../components/shared/EmptyState";
 import { SKILL_CATEGORIES } from "../../utils/constants";
 import { HiOutlineChip } from "react-icons/hi";
+import { BsToggleOff, BsToggleOn } from "react-icons/bs";
 
 const inputClass = `w-full bg-background border border-border rounded-xl
   px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground
@@ -25,6 +26,7 @@ const EMPTY_FORM = {
   iconSlug: "",
   proficiencyPercentage: 80,
   skillOrder: 0,
+  isFeatured: false,
 };
 
 const ManageSkills = () => {
@@ -67,6 +69,7 @@ const ManageSkills = () => {
       iconSlug: skill.iconSlug || "",
       proficiencyPercentage: skill.proficiencyPercentage || 80,
       skillOrder: skill.skillOrder || 0,
+      isFeatured: skill.isFeatured || false,
     });
     setDialogOpen(true);
   };
@@ -324,6 +327,32 @@ const ManageSkills = () => {
                 className="accent-primary"
               />
             </div>
+
+            {/* isFeatured toggle */}
+            <label className="flex items-center gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                name="isFeatured"
+                checked={form.isFeatured || false}
+                onChange={(e) =>
+                  setForm((prev) => ({ ...prev, isFeatured: e.target.checked }))
+                }
+                className="hidden"
+              />
+              {form.isFeatured ? (
+                <BsToggleOn className="text-2xl text-primary" />
+              ) : (
+                <BsToggleOff className="text-2xl text-muted-foreground" />
+              )}
+              <div className="flex flex-col">
+                <span className="text-sm font-medium text-foreground">
+                  Show in About section
+                </span>
+                <span className="text-xs text-muted-foreground">
+                  Featured skills appear in the About Me tech stack row
+                </span>
+              </div>
+            </label>
 
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-semibold text-foreground">

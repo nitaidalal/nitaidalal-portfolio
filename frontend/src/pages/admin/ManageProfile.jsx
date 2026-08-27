@@ -116,20 +116,22 @@ const ManageProfile = () => {
     <div className="flex flex-col gap-6 max-w-4xl">
       <Motion.div
         initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0  }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
       >
-
         {/* ── Avatar + Resume row ───────────────── */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-
           {/* Avatar card */}
-          <div className="bg-card border border-border rounded-2xl p-5
-                          flex flex-col gap-4">
+          <div
+            className="bg-card border border-border rounded-2xl p-5
+                          flex flex-col gap-4"
+          >
             <p className="text-sm font-bold text-foreground">Profile Photo</p>
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-full overflow-hidden
-                              bg-accent border border-border flex-shrink-0">
+              <div
+                className="w-16 h-16 rounded-full overflow-hidden
+                              bg-accent border border-border flex-shrink-0"
+              >
                 {avatarPreview || profile?.avatarUrl ? (
                   <img
                     src={avatarPreview || profile.avatarUrl}
@@ -145,8 +147,10 @@ const ManageProfile = () => {
                 )}
               </div>
               <div className="flex flex-col gap-2 flex-1">
-                <label className="flex items-center gap-2 text-xs font-medium
-                                  text-primary cursor-pointer hover:underline">
+                <label
+                  className="flex items-center gap-2 text-xs font-medium
+                                  text-primary cursor-pointer hover:underline"
+                >
                   <MdOutlineFileUpload />
                   Choose photo
                   <input
@@ -172,8 +176,10 @@ const ManageProfile = () => {
           </div>
 
           {/* Resume card */}
-          <div className="bg-card border border-border rounded-2xl p-5
-                          flex flex-col gap-4">
+          <div
+            className="bg-card border border-border rounded-2xl p-5
+                          flex flex-col gap-4"
+          >
             <p className="text-sm font-bold text-foreground">Resume (PDF)</p>
             <div className="flex flex-col gap-2">
               {profile?.resumeUrl && (
@@ -186,8 +192,10 @@ const ManageProfile = () => {
                   View current resume →
                 </a>
               )}
-              <label className="flex items-center gap-2 text-xs font-medium
-                                text-primary cursor-pointer hover:underline">
+              <label
+                className="flex items-center gap-2 text-xs font-medium
+                                text-primary cursor-pointer hover:underline"
+              >
                 <MdOutlineFileUpload />
                 Choose PDF
                 <input
@@ -223,8 +231,10 @@ const ManageProfile = () => {
           className="bg-card border border-border rounded-2xl p-6
                      flex flex-col gap-5"
         >
-          <p className="text-sm font-bold text-foreground border-b
-                        border-border pb-3">
+          <p
+            className="text-sm font-bold text-foreground border-b
+                        border-border pb-3"
+          >
             Profile Information
           </p>
 
@@ -232,15 +242,23 @@ const ManageProfile = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="flex flex-col gap-1.5">
               <label className={labelClass}>Full Name</label>
-              <input name="name" value={form.name || ""}
-                     onChange={handleChange} className={inputClass}
-                     placeholder="Nitai Dalal" />
+              <input
+                name="name"
+                value={form.name || ""}
+                onChange={handleChange}
+                className={inputClass}
+                placeholder="Nitai Dalal"
+              />
             </div>
             <div className="flex flex-col gap-1.5">
               <label className={labelClass}>Hero Subtitle</label>
-              <input name="heroSubtitle" value={form.heroSubtitle || ""}
-                     onChange={handleChange} className={inputClass}
-                     placeholder="I build things for the web" />
+              <input
+                name="heroSubtitle"
+                value={form.heroSubtitle || ""}
+                onChange={handleChange}
+                className={inputClass}
+                placeholder="I build things for the web"
+              />
             </div>
           </div>
 
@@ -274,19 +292,69 @@ const ManageProfile = () => {
             />
           </div>
 
+          {/* Description (second paragraph) */}
+          <div className="flex flex-col gap-1.5">
+            <label className={labelClass}>
+              Description
+              <span className="text-muted-foreground font-normal ml-1">
+                (second paragraph in About section)
+              </span>
+            </label>
+            <textarea
+              name="description"
+              value={form.description || ""}
+              onChange={handleChange}
+              rows={3}
+              className={`${inputClass} resize-none`}
+              placeholder="I enjoy building scalable web applications..."
+            />
+          </div>
+
+          {/* Role + Education */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="flex flex-col gap-1.5">
+              <label className={labelClass}>Role</label>
+              <input
+                name="role"
+                value={form.role || ""}
+                onChange={handleChange}
+                className={inputClass}
+                placeholder="Full Stack Developer"
+              />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label className={labelClass}>Education</label>
+              <input
+                name="education"
+                value={form.education || ""}
+                onChange={handleChange}
+                className={inputClass}
+                placeholder="B.Tech CSE (AI & ML)"
+              />
+            </div>
+          </div>
+
           {/* Currently building + learning */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="flex flex-col gap-1.5">
               <label className={labelClass}>Currently Building</label>
-              <input name="currentlyBuilding" value={form.currentlyBuilding || ""}
-                     onChange={handleChange} className={inputClass}
-                     placeholder="My developer portfolio" />
+              <input
+                name="currentlyBuilding"
+                value={form.currentlyBuilding || ""}
+                onChange={handleChange}
+                className={inputClass}
+                placeholder="My developer portfolio"
+              />
             </div>
             <div className="flex flex-col gap-1.5">
               <label className={labelClass}>Currently Learning</label>
-              <input name="currentlyLearning" value={form.currentlyLearning || ""}
-                     onChange={handleChange} className={inputClass}
-                     placeholder="Docker, AWS" />
+              <input
+                name="currentlyLearning"
+                value={form.currentlyLearning || ""}
+                onChange={handleChange}
+                className={inputClass}
+                placeholder="Docker, AWS"
+              />
             </div>
           </div>
 
@@ -294,43 +362,80 @@ const ManageProfile = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="flex flex-col gap-1.5">
               <label className={labelClass}>Fun Fact</label>
-              <input name="funFact" value={form.funFact || ""}
-                     onChange={handleChange} className={inputClass}
-                     placeholder="I solve LeetCode in C++" />
+              <input
+                name="funFact"
+                value={form.funFact || ""}
+                onChange={handleChange}
+                className={inputClass}
+                placeholder="I solve LeetCode in C++"
+              />
             </div>
             <div className="flex flex-col gap-1.5">
               <label className={labelClass}>Location</label>
-              <input name="location" value={form.location || ""}
-                     onChange={handleChange} className={inputClass}
-                     placeholder="Kolkata, West Bengal" />
+              <input
+                name="location"
+                value={form.location || ""}
+                onChange={handleChange}
+                className={inputClass}
+                placeholder="Kolkata, West Bengal"
+              />
             </div>
           </div>
 
           {/* Email */}
           <div className="flex flex-col gap-1.5">
             <label className={labelClass}>Public Email</label>
-            <input type="email" name="email" value={form.email || ""}
-                   onChange={handleChange} className={inputClass}
-                   placeholder="nitai@example.com" />
+            <input
+              type="email"
+              name="email"
+              value={form.email || ""}
+              onChange={handleChange}
+              className={inputClass}
+              placeholder="nitai@example.com"
+            />
           </div>
 
           {/* Social links */}
           <div className="flex flex-col gap-3">
-            <p className="text-xs font-bold text-foreground uppercase
-                          tracking-wider border-b border-border pb-2">
+            <p
+              className="text-xs font-bold text-foreground uppercase
+                          tracking-wider border-b border-border pb-2"
+            >
               Social Links
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
-                { key: "github",    icon: FaGithub,   placeholder: "https://github.com/username"   },
-                { key: "linkedin",  icon: FaLinkedin, placeholder: "https://linkedin.com/in/username" },
-                { key: "leetcode",  icon: SiLeetcode, placeholder: "https://leetcode.com/username"  },
-                { key: "twitter",   icon: FaTwitter,  placeholder: "https://twitter.com/username"   },
-                { key: "instagram", icon: FaInstagram,placeholder: "https://instagram.com/username" },
+                {
+                  key: "github",
+                  icon: FaGithub,
+                  placeholder: "https://github.com/username",
+                },
+                {
+                  key: "linkedin",
+                  icon: FaLinkedin,
+                  placeholder: "https://linkedin.com/in/username",
+                },
+                {
+                  key: "leetcode",
+                  icon: SiLeetcode,
+                  placeholder: "https://leetcode.com/username",
+                },
+                {
+                  key: "twitter",
+                  icon: FaTwitter,
+                  placeholder: "https://twitter.com/username",
+                },
+                {
+                  key: "instagram",
+                  icon: FaInstagram,
+                  placeholder: "https://instagram.com/username",
+                },
               ].map(({ key, icon: Icon, placeholder }) => (
                 <div key={key} className="flex flex-col gap-1.5">
-                  <label className="flex items-center gap-1.5 text-xs
-                                    font-semibold text-foreground capitalize">
+                  <label
+                    className="flex items-center gap-1.5 text-xs
+                                    font-semibold text-foreground capitalize"
+                  >
                     <Icon className="text-primary" />
                     {key}
                   </label>
@@ -348,22 +453,32 @@ const ManageProfile = () => {
 
           {/* SEO */}
           <div className="flex flex-col gap-3">
-            <p className="text-xs font-bold text-foreground uppercase
-                          tracking-wider border-b border-border pb-2">
+            <p
+              className="text-xs font-bold text-foreground uppercase
+                          tracking-wider border-b border-border pb-2"
+            >
               SEO
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="flex flex-col gap-1.5">
                 <label className={labelClass}>Meta Title</label>
-                <input name="metaTitle" value={form.metaTitle || ""}
-                       onChange={handleChange} className={inputClass}
-                       placeholder="Nitai Dalal — Full Stack Developer" />
+                <input
+                  name="metaTitle"
+                  value={form.metaTitle || ""}
+                  onChange={handleChange}
+                  className={inputClass}
+                  placeholder="Nitai Dalal — Full Stack Developer"
+                />
               </div>
               <div className="flex flex-col gap-1.5">
                 <label className={labelClass}>Meta Description</label>
-                <input name="metaDescription" value={form.metaDescription || ""}
-                       onChange={handleChange} className={inputClass}
-                       placeholder="Portfolio of Nitai Dalal..." />
+                <input
+                  name="metaDescription"
+                  value={form.metaDescription || ""}
+                  onChange={handleChange}
+                  className={inputClass}
+                  placeholder="Portfolio of Nitai Dalal..."
+                />
               </div>
             </div>
           </div>
