@@ -20,6 +20,7 @@ const PAGE_TITLES = {
 
 const AdminTopbar = ({ onMenuToggle }) => {
   const { admin }    = useAuth();
+  console.log("Admin data in AdminTopbar:", admin); // Log the admin data for debugging
   const { pathname } = useLocation();
 
   const pageTitle = PAGE_TITLES[pathname] || "Admin";
@@ -75,10 +76,10 @@ const AdminTopbar = ({ onMenuToggle }) => {
                         rounded-lg bg-accent border border-border">
           <div className="w-6 h-6 rounded-full bg-primary flex items-center
                           justify-center text-primary-foreground text-xs font-bold">
-            {admin?.email?.charAt(0).toUpperCase()}
+            {admin?.admin?.email?.charAt(0).toUpperCase()}
           </div>
           <span className="text-xs font-medium text-foreground max-w-[120px] truncate">
-            {admin?.email}
+            {admin?.admin?.email}
           </span>
         </div>
       </div>

@@ -89,7 +89,7 @@ const ManageCertifications = () => {
       Object.entries(form).forEach(([k, v]) => {
         if (v) fd.append(k, v);
       });
-      if (imageFile) fd.append("image", imageFile);
+      if (imageFile) fd.append("certificate_image", imageFile);
 
       if (editTarget) {
         await certificationService.update(editTarget._id, fd);

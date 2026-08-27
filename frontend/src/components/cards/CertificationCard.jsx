@@ -27,8 +27,10 @@ const CertificationCard = ({ cert }) => {
               className="w-14 h-14 rounded-xl object-contain bg-muted p-1"
             />
           ) : (
-            <div className="w-14 h-14 rounded-xl bg-accent flex items-center
-                            justify-center">
+            <div
+              className="w-14 h-14 rounded-xl bg-accent flex items-center
+                            justify-center"
+            >
               <HiOutlineBadgeCheck className="text-primary text-2xl" />
             </div>
           )}
@@ -47,12 +49,26 @@ const CertificationCard = ({ cert }) => {
             Verify
           </a>
         )}
+
+        {imageUrl  && (
+          <a
+            href={imageUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-xs font-medium
+                        text-primary hover:underline flex-shrink-0"
+          > 
+            <FiExternalLink />
+            View Image
+          </a>
+        )}
       </div>
 
-      {/* Info */}
       <div className="flex flex-col gap-1.5">
-        <h3 className="font-bold text-foreground text-sm leading-snug
-                       group-hover:text-primary transition-colors">
+        <h3
+          className="font-bold text-foreground text-sm leading-snug
+                       group-hover:text-primary transition-colors"
+        >
           {title}
         </h3>
         <p className="text-xs text-muted-foreground font-medium">{issuer}</p>
