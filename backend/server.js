@@ -1,5 +1,5 @@
+import "dotenv/config";
 import express from "express";
-import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
@@ -12,9 +12,6 @@ import { generalLimiter } from "./middleware/rateLimiter.js";
 
 // import Routes
 import router from "./routes/index.js";
-
-
-dotenv.config();
 
 connectDB();
 connectCloudinary();

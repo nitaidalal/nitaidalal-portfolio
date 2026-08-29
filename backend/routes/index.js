@@ -8,6 +8,8 @@ import educationRoutes from "./education.route.js";
 import certRoutes from "./certification.route.js";
 import achievementRoutes from "./achievement.route.js";
 import contactRoutes from "./contact.route.js";
+import chatRoutes from "./chat.route.js";
+
 
 const router = express.Router();
 
@@ -19,5 +21,6 @@ router.use("/education", educationRoutes);
 router.use("/certifications", certRoutes);
 router.use("/achievements", achievementRoutes);
 router.use("/messages", contactRoutes);
+router.use("/chat", chatRoutes);
 
 export default router;
