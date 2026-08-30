@@ -106,7 +106,7 @@ const Hero = () => {
     >
       {/* Subtle dot grid background */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none z-0"
         style={{
           backgroundImage: `radial-gradient(circle, var(--border) 1px, transparent 1px)`,
           backgroundSize: "28px 28px",
@@ -117,13 +117,13 @@ const Hero = () => {
       {/* Soft glow */}
       <div
         className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2
-                   w-[600px] h-[400px] rounded-full pointer-events-none"
+                   w-[600px] h-[400px] rounded-full pointer-events-none z-0"
         style={{
           background: `radial-gradient(ellipse, var(--accent) 0%, transparent 70%)`,
           opacity: 0.5,
         }}
       />
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
         {FLOATING_ICONS.map(({ slug, icon: Icon, delay, duration, ...pos }) => (
           <Motion.div
             key={slug}
