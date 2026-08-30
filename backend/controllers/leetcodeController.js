@@ -1,10 +1,22 @@
 import { errorResponse, successResponse } from "../utils/apiResponse.js";
 
 const LEETCODE_GRAPHQL = "https://leetcode.com/graphql";
+const cache = new Map();
+const inFlightRequests = new Map();
+const CACHE_TTL = 10 * 60 * 1000;
 
 export const getLeetCodeStats = async (req, res, next) => {
     try {
         const { username } = req.params;
+        const cached = cache.get(username);
+        if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+          return successResponse(
+            res,
+            200,
+            "LeetCode stats fetched",
+            cached.data,
+          );
+        }
 
         if (!username || !/^[A-Za-z0-9_-]+$/.test(username)) {
             return res.status(400).json(errorResponse("Invalid LeetCode username"));
@@ -37,24 +49,31 @@ export const getLeetCodeStats = async (req, res, next) => {
       }
     `;
 
-    const response = await fetch(LEETCODE_GRAPHQL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Referer: "https://leetcode.com",
-        "User-Agent": "Mozilla/5.0",
-      },
-      body: JSON.stringify({
-        query,
-        variables: { username },
-      }),
-    });
+    let request = inFlightRequests.get(username);
+    if (!request) {
+      request = fetch(LEETCODE_GRAPHQL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Referer: "https://leetcode.com",
+          "User-Agent": "Mozilla/5.0",
+        },
+        body: JSON.stringify({
+          query,
+          variables: { username },
+        }),
+      }).then(async (response) => {
+        if (!response.ok) {
+          throw new Error(`LeetCode request failed with status ${response.status}`);
+        }
+        return response.json();
+      });
 
-    if (!response.ok) {
-      return errorResponse(res, 502, "Failed to fetch from LeetCode");
+      inFlightRequests.set(username, request);
+      request.finally(() => inFlightRequests.delete(username));
     }
 
-    const json = await response.json();
+    const json = await request;
 
     if (!json.data?.matchedUser) {
       return errorResponse(res, 404, "LeetCode user not found");
@@ -82,6 +101,8 @@ export const getLeetCodeStats = async (req, res, next) => {
     ? Math.round(contestRanking.rating)
     : null,
     };
+
+    cache.set(username, { data: stats, timestamp: Date.now() });
 
     return successResponse(res, 200, "LeetCode stats fetched", stats);
     } catch (error) {

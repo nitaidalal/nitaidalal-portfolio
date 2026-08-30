@@ -110,6 +110,7 @@ const GitHubActivity = () => {
               <img
                 src={`https://github-readme-streak-stats.herokuapp.com/?user=${GITHUB_USERNAME}&hide_border=true&background=00000000&ring=${isDark ? "4a90d9" : "2563a8"}&fire=${isDark ? "e8874a" : "c96a20"}&currStreakLabel=${isDark ? "c0c0c0" : "3a3a3a"}&sideLabels=${isDark ? "c0c0c0" : "3a3a3a"}&dates=${isDark ? "8888a0" : "71717a"}&currStreakNum=${isDark ? "f0f0f0" : "1a1a1a"}&sideNums=${isDark ? "f0f0f0" : "1a1a1a"}`}
                 alt="GitHub Streak"
+                draggable="false"
                 className="w-full h-auto"
                 loading="lazy"
               />
