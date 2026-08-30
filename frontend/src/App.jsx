@@ -17,6 +17,8 @@ import ManageAchievements from "./pages/admin/ManageAchievements";
 import ManageProfile from "./pages/admin/ManageProfile";
 import ManageMessages from "./pages/admin/ManageMessages";
 import ChatWidget from "./components/chat/ChatWidget";
+import ProjectDetail from "./pages/public/ProjectDetail";
+
 
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
@@ -81,6 +83,14 @@ const App = () => {
           element={
             <PublicLayout>
               <AllProjects />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/projects/:id"
+          element={
+            <PublicLayout>
+              <ProjectDetail />
             </PublicLayout>
           }
         />
