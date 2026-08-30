@@ -1,4 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
+import { useLocation } from "react-router-dom";
 import useAuth from "./hooks/useAuth";
 import useScrollTop from "./hooks/useScrollTop";
 
@@ -25,6 +27,7 @@ import Footer from "./components/layout/Footer";
 import AdminLayout from "./components/admin/layout/AdminLayout";
 
 import { Toaster } from "sonner"; 
+import CursorSpotlight from "./components/shared/CursorSpotlight";
 
 const ProtectedRoute = ({ children }) => {
   const { admin, loading } = useAuth();
@@ -68,7 +71,9 @@ const App = () => {
           }
         }}
       />
-      <Routes>
+      <CursorSpotlight />
+      <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
         {/* ── Public routes ───────────────────────── */}
         <Route
           path="/"
@@ -142,6 +147,7 @@ const App = () => {
           }
         />
       </Routes>
+      </AnimatePresence>
       <ChatWidget />
     </>
   );

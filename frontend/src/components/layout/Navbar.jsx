@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import useAuth from "../../hooks/useAuth";
 import { APP_ROUTES } from "../../utils/constants";
+import ScrollProgress from "../sections/ScrollProgress";
 
 const NAV_LINKS = [
   { label: "About",        href: "#about"        },
@@ -72,6 +73,7 @@ const Navbar = () => {
           : "bg-transparent"
       }`}
     >
+      <ScrollProgress />
       <nav
         className="max-w-6xl mx-auto px-4 sm:px-6 h-16
                       flex items-center justify-between gap-4"
