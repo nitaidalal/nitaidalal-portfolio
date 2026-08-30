@@ -6,6 +6,8 @@ import Education from "../../components/sections/Education";
 import Certifications from "../../components/sections/Certifications";
 import Achievements from "../../components/sections/Achievements";
 import Contact from "../../components/sections/Contact";
+import GitHubActivity from "@/components/sections/GitHubActivity";
+import LeetCodeStats from "@/components/sections/LeetCodeStats";
 
 const Home = () => {
   return (
@@ -17,6 +19,8 @@ const Home = () => {
       <Education />
       <Certifications />
       <Achievements />
+      <LeetCodeStats />
+      <GitHubActivity/>
       <Contact />
     </>
   );
