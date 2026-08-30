@@ -16,6 +16,7 @@ import ManageCertifications from "./pages/admin/ManageCertifications";
 import ManageAchievements from "./pages/admin/ManageAchievements";
 import ManageProfile from "./pages/admin/ManageProfile";
 import ManageMessages from "./pages/admin/ManageMessages";
+import ChatWidget from "./components/chat/ChatWidget";
 
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
@@ -131,6 +132,7 @@ const App = () => {
           }
         />
       </Routes>
+      <ChatWidget />
     </>
   );
 };
