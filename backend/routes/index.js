@@ -9,6 +9,7 @@ import certRoutes from "./certification.route.js";
 import achievementRoutes from "./achievement.route.js";
 import contactRoutes from "./contact.route.js";
 import chatRoutes from "./chat.route.js";
+import leetcodeRoutes from "./leetcode.route.js";
 
 
 const router = express.Router();
@@ -22,5 +23,6 @@ router.use("/certifications", certRoutes);
 router.use("/achievements", achievementRoutes);
 router.use("/messages", contactRoutes);
 router.use("/chat", chatRoutes);
+router.use("/leetcode", leetcodeRoutes);
 
 export default router;
