@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { motion as Motion } from "framer-motion";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { SiLeetcode } from "react-icons/si";
+import {
+  SiLeetcode,
+  SiReact,
+  SiNodedotjs,
+  SiMongodb,
+  SiTypescript,
+} from "react-icons/si";
 import { HiArrowDown } from "react-icons/hi";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { MapPin, ArrowUpRight } from "lucide-react";
@@ -86,6 +92,12 @@ const Hero = () => {
     hidden: { opacity: 0, y: 24 },
     show:   { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
   };
+  const FLOATING_ICONS = [
+    { slug: "react", icon: SiReact, top: "15%", left: "8%", delay: 0, duration: 6 },
+    { slug: "nodejs", icon: SiNodedotjs, top: "70%", left: "5%", delay: 1, duration: 7 },
+    { slug: "mongodb", icon: SiMongodb, top: "25%", right: "6%", delay: 0.5, duration: 8 },
+    { slug: "typescript", icon: SiTypescript, top: "65%", right: "8%", delay: 1.5, duration: 6 },
+  ];
 
   return (
     <section
@@ -111,6 +123,27 @@ const Hero = () => {
           opacity: 0.5,
         }}
       />
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {FLOATING_ICONS.map(({ slug, icon: Icon, delay, duration, ...pos }) => (
+          <Motion.div
+            key={slug}
+            className="absolute opacity-[0.18]"
+            style={pos}
+            animate={{ y: [0, -20, 0] }}
+            transition={{
+              duration,
+              delay,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            <Icon
+              className="w-10 h-10 sm:w-14 sm:h-14"
+              style={{ color: "var(--primary)" }}
+            />
+          </Motion.div>
+        ))}
+      </div>
 
       <PageWrapper className="relative z-10 w-full">
         <div

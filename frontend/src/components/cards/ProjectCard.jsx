@@ -2,9 +2,12 @@ import { motion as Motion } from "framer-motion";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 import { BsCalendar3 } from "react-icons/bs";
 import { formatMonthYear } from "../../utils/formatDate";
+import { Link } from "react-router-dom";
+
 
 const ProjectCard = ({ project }) => {
   const {
+    _id,
     title,
     shortDescription,
     techTags = [],
@@ -18,12 +21,13 @@ const ProjectCard = ({ project }) => {
   } = project;
 
   return (
+    <Link to={`/projects/${_id}`} className="block group">
     <Motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      whileHover={{ y: -4 }}
+      whileHover={{ y: -4 , scale: 1.02  }}
       className="group bg-card border border-border rounded-2xl overflow-hidden
                  shadow-sm hover:shadow-md hover:border-primary/30
                  transition-all duration-300 flex flex-col"
@@ -141,6 +145,7 @@ const ProjectCard = ({ project }) => {
         </div>
       </div>
     </Motion.div>
+    </Link>
   );
 };
 

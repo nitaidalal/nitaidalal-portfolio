@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { motion as Motion, AnimatePresence } from "framer-motion";
 import { HiMenu } from "react-icons/hi";
 import { TbCode } from "react-icons/tb";
+import { FaGithub } from "react-icons/fa";
+import { AiOutlineStar } from "react-icons/ai";
 import {
   Sheet,
   SheetContent,
@@ -120,7 +122,34 @@ const Navbar = () => {
         </div>
 
         {/* ── Right: Theme + Mobile ──────────────── */}
-        <div className="flex items-center gap-2">
+        <div className="flex  items-center gap-2">
+          <Motion.a
+            href="https://github.com/nitaidalal/nitaidalal-portfolio"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className=" flex items-center gap-1.5 px-3 py-1.5
+               rounded-lg border border-border bg-card
+               text-muted-foreground text-xs font-medium
+               hover:border-yellow-400/50 hover:text-foreground
+               hover:bg-accent transition-all duration-200 group"
+            aria-label="Star on GitHub"
+          >
+            <FaGithub className="text-sm" />
+            <span>Star</span>
+            <Motion.span
+              animate={{ rotate: [0, 15, -10, 15, 0] }}
+              transition={{
+                duration: 1.2,
+                repeat: Infinity,
+                repeatDelay: 3, 
+                ease: "easeInOut",
+              }}
+            >
+              <AiOutlineStar className="text-sm text-yellow-400" />
+            </Motion.span>
+          </Motion.a>
           <ThemeSwitcher />
 
           {/* Mobile sheet */}
@@ -173,6 +202,7 @@ const Navbar = () => {
                       {link.label}
                     </Motion.a>
                   ))}
+        
                 </div>
               </div>
             </SheetContent>
