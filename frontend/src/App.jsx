@@ -20,7 +20,7 @@ import ManageProfile from "./pages/admin/ManageProfile";
 import ManageMessages from "./pages/admin/ManageMessages";
 import ChatWidget from "./components/chat/ChatWidget";
 import ProjectDetail from "./pages/public/ProjectDetail";
-
+import NotFound from "./pages/NotFound";
 
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
@@ -127,23 +127,7 @@ const App = () => {
         <Route
           path="*"
           element={
-            <div
-              className="min-h-screen bg-background flex items-center
-                        justify-center text-foreground"
-            >
-              <div className="text-center">
-                <h1 className="text-6xl font-bold text-primary mb-4">404</h1>
-                <p className="text-muted-foreground">Page not found</p>
-                <a
-                  href="/"
-                  className="mt-6 inline-block bg-primary text-primary-foreground
-                          px-6 py-2.5 rounded-lg text-sm font-medium
-                          hover:opacity-90 transition-opacity"
-                >
-                  Go Home
-                </a>
-              </div>
-            </div>
+            <NotFound />
           }
         />
       </Routes>
