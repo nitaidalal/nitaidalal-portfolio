@@ -1,6 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
-import { useLocation } from "react-router-dom";
 import useAuth from "./hooks/useAuth";
 import useScrollTop from "./hooks/useScrollTop";
 
