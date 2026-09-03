@@ -10,7 +10,6 @@ import connectCloudinary from "./config/cloudinary.js";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 import { generalLimiter } from "./middleware/rateLimiter.js";
 
-// import Routes
 import router from "./routes/index.js";
 
 connectDB();
@@ -18,11 +17,8 @@ connectCloudinary();
 
 const app = express();
 
-
-// ─── Security ─────────────────────────────────────────
 app.use(helmet());
 
-// ─── CORS ─────────────────────────────────────────────
 app.use(
   cors({
     origin: process.env.CLIENT_URL || "http://localhost:5173",
@@ -30,26 +26,17 @@ app.use(
   }),
 );
 
-// ─── Parsers ──────────────────────────────────────────
-app.use(express.json({ limit: "10mb" })); //
+app.use(express.json({ limit: "10mb" })); 
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 app.use(cookieParser());
 
-
-
-// ─── Logger ───────────────────────────────────────────
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
-// ─────────────────────────────────────────
-// Rate Limiter
-// ─────────────────────────────────────────
-// app.use(generalLimiter);
+app.use(generalLimiter);
 
-
-// ─── Health Check ─────────────────────────────────────
-app.get("/api/health", (req, res) => {
+app.get("/", (req, res) => {
   res.status(200).json({
     success: true,
     message: "Portfolio API is running 🚀",
@@ -58,19 +45,14 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-
-// ─── Routes ───────────────────────────────────────────
 app.use("/api", router);
 
-
-//error handling middleware should be last
 app.use(notFound);
 app.use(errorHandler);
 
 
 
 
-// ─── Start ────────────────────────────────────────────
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(
