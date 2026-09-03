@@ -42,7 +42,7 @@ export const registerLimiter = rateLimit({
 //----General Api limiter------
 export const generalLimiter = rateLimit({
     windowMs: 10 * 60 * 1000, // 10 minutes
-    max: 100, 
+    max: 300, 
     message: {
         success: false,
         message: "Too many requests from this IP, please try again after 10 minutes.",

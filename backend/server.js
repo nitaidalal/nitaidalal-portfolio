@@ -18,6 +18,8 @@ connectCloudinary();
 
 const app = express();
 
+app.set("trust proxy", 1);
+
 app.use(helmet());
 
 app.use(
@@ -35,7 +37,6 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
-app.use(generalLimiter);
 
 app.get("/", (req, res) => {
   res.status(200).json({
@@ -46,7 +47,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/api", router);
+app.use("/api",generalLimiter, router);
 
 app.use(notFound);
 app.use(errorHandler);
