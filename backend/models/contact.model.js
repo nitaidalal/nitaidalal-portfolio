@@ -25,11 +25,14 @@ const contactSchema = new Schema(
       required: [true, "Message is required"],
       trim: true,
     },
-    
+
     isRead: {
       type: Boolean,
-      default: false, // admin sees unread count in dashboard
+      default: false, 
     },
+    isReplied: { type: Boolean, default: false },
+    repliedAt: { type: Date, default: null },
+    replyMessage: { type: String, default: "" },
   },
   { timestamps: true },
 );
