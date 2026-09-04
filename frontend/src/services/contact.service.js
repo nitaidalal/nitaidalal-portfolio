@@ -26,4 +26,11 @@ export const contactService = {
     );
     return res.data;
   },
+  reply: async (id, replyMessage) => {
+    const res = await axiosInstance.post(
+      `${API_ROUTES.ADMIN_MESSAGES}/${id}/reply`,
+      { replyMessage },
+    );
+    return res.data;
+  },
 };
