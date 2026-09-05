@@ -383,7 +383,7 @@ export const adminReplyTemplate = ({
                 Reply from
                 <a href="${process.env.CLIENT_URL}"
                    style="color:#3a7d5c;text-decoration:none;">
-                  nitaidalal.dev
+                  nitaidalal.me
                 </a>
                 · Sent via Portfolio Contact System
               </p>
