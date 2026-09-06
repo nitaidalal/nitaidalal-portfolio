@@ -9,6 +9,7 @@ import EmptyState from "../../components/shared/EmptyState";
 import PageWrapper from "../../components/layout/PageWrapper";
 import { PROJECT_CATEGORIES } from "../../utils/constants";
 import { TbCode } from "react-icons/tb";
+import SkeletonCard from "../../components/shared/skeletonCard";
 
 const AllProjects = () => {
   const [projects, setProjects] = useState([]);
@@ -60,7 +61,13 @@ const AllProjects = () => {
           </div>
 
           {/* States */}
-          {loading && <LoadingSpinner />}
+          {loading && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3].map((i) => (
+                <SkeletonCard key={i} />
+              ))}
+            </div>
+          )}
           {error && <ErrorMessage message={error} onRetry={fetchProjects} />}
 
           {!loading && !error && projects.length === 0 && (

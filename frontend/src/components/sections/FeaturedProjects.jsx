@@ -10,6 +10,7 @@ import ErrorMessage from "../shared/ErrorMessage";
 import EmptyState from "../shared/EmptyState";
 import PageWrapper from "../layout/PageWrapper";
 import { TbCode } from "react-icons/tb";
+import SkeletonCard from "../shared/skeletonCard";
 
 const FeaturedProjects = () => {
   const [projects, setProjects] = useState([]);
@@ -65,8 +66,13 @@ const FeaturedProjects = () => {
           </div>
 
           {/* States */}
-          {loading && <LoadingSpinner />}
-          {error && <ErrorMessage message={error} onRetry={fetchProjects} />}
+          {loading && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3].map((i) => (
+                <SkeletonCard key={i} />
+              ))}
+            </div>
+          )}
 
           {!loading && !error && projects.length === 0 && (
             <EmptyState
