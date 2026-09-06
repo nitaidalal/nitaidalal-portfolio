@@ -6,6 +6,7 @@ import { SiLeetcode } from "react-icons/si";
 import { toast } from "sonner";
 import { profileService } from "../../services/profile.service";
 import LoadingSpinner from "../../components/shared/LoadingSpinner";
+import ChangePassword from "@/components/admin/ChangePassword";
 
 const inputClass = `w-full bg-background border border-border rounded-xl
   px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground
@@ -18,6 +19,7 @@ const ManageProfile = () => {
   const [loading,  setLoading]  = useState(true);
   const [saving,   setSaving]   = useState(false);
   const [form,     setForm]     = useState({});
+  const [changePassOpen , setChangePassOpen] = useState(false);
 
   // avatar + resume
   const [avatarFile,  setAvatarFile]  = useState(null);
@@ -481,6 +483,20 @@ const ManageProfile = () => {
                 />
               </div>
             </div>
+          </div>
+
+          {/* Change Password */}
+          <div className="flex flex-col gap-3">
+            <p
+              className="text-xs font-bold text-foreground uppercase
+                          tracking-wider border-b border-border pb-2"
+            >
+              Change Password
+            </p>
+            <ChangePassword
+              open={changePassOpen}
+              onOpenChange={setChangePassOpen}
+            />
           </div>
 
           {/* Save button */}
