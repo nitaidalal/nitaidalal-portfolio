@@ -27,11 +27,16 @@ const NAV_LINKS = [
   { label: "Contact",      href: "#contact"       },
 ];
 
-const handleScroll = (e, href) => {
+const handleScroll = (e, href, navigate) => {
   e.preventDefault();
-  const id = href.replace("#", "");
+  const id = href.replace("#", ""); //this will do -> 
   const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: "smooth" });
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth" })
+  }else{
+    navigate(`/${href}`);
+  };
+
 };
 
 const Navbar = () => {
@@ -108,7 +113,7 @@ const Navbar = () => {
             <a
               key={link.href}
               href={link.href}
-              onClick={(e) => handleScroll(e, link.href)}
+              onClick={(e) => handleScroll(e, link.href, navigate)}
               className="relative text-sm font-medium text-muted-foreground
                          hover:text-foreground transition-colors duration-200
                          group"
@@ -193,7 +198,7 @@ const Navbar = () => {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.05, duration: 0.2 }}
                       onClick={(e) => {
-                        handleScroll(e, link.href);
+                        handleScroll(e, link.href, navigate);
                         setMobileOpen(false);
                       }}
                       className="flex items-center px-3 py-2.5 rounded-lg
