@@ -116,7 +116,7 @@
 | Multer | File upload handling |
 | Zod | Request validation |
 | Nodemailer / Resend | Email delivery |
-| @google/generative-ai | Gemini AI SDK |
+| @google/genai
 | node-cron | Keep-alive scheduler |
 | express-rate-limit | Rate limiting |
 | helmet + morgan | Security headers and logging |
