@@ -47,6 +47,7 @@ export const PROJECT_CATEGORIES = [
   "Backend",
   "Mobile",
   "Machine Learning",
+  "AI"
 ];
 
 export const SKILL_CATEGORIES = [

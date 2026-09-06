@@ -74,7 +74,7 @@ const baseProjectSchema = z.object({
     .default([]),
 
   category: z
-    .enum(["Full Stack", "Frontend", "Backend", "Mobile", "Machine Learning"], {
+    .enum(["Full Stack", "Frontend", "Backend", "Mobile", "Machine Learning","AI"], {
       required_error: "Category is required",
       invalid_type_error: "Invalid category",
     })
