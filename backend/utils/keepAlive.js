@@ -1,6 +1,6 @@
 import cron from "node-cron";
 
-const BACKEND_URL = "https://nitaidalal-portfolio.onrender.com/";
+const BACKEND_URL = "https://nitaidalal-portfolio-ffut.onrender.com/";
 
 const startKeepAlive = () => {
   cron.schedule("*/14 * * * *", async () => {
